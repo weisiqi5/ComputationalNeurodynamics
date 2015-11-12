@@ -30,10 +30,10 @@ c = -65
 d = 8
 
 ## Parameters of Izhikevich's model (fast spiking)
-# a = 0.02
-# b = 0.25
-# c = -65
-# d = 2
+a = 0.02
+b = 0.25
+c = -65
+d = 8
 
 ## Parameters of Izhikevich's model (bursting)
 # a = 0.02
@@ -47,6 +47,19 @@ u = np.zeros(len(T))
 ## Initial values
 v[0] = -65
 u[0] = -1
+
+def rk4(t0, y0, tmax, h, func):
+	T = np.arange(t0, tmax+dt, dt)
+	y = np.zeros(len(T))
+	y[0] = y0
+	for t in xrange(len(T)-1):
+		k1 = f(T[t], y[t])
+		k2 = f(T[t] + h/2, y[t] + h/2 * k1)
+		k3 = f(T[t] + h/2, y[t] + h/2 * k2)
+		k4 = f(T[t] + h, y[t] + h * k3)
+		y[t+1] = y[t] + (h/6)*(k1 + 2*k2 + 2*k3 + k4)
+		pass
+	return (T, y)
 
 ## SIMULATE
 for t in xrange(len(T)-1):
