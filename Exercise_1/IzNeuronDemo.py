@@ -53,10 +53,10 @@ def rk4(t0, y0, tmax, h, func):
 	y = np.zeros(len(T))
 	y[0] = y0
 	for t in xrange(len(T)-1):
-		k1 = f(T[t], y[t])
-		k2 = f(T[t] + h/2, y[t] + h/2 * k1)
-		k3 = f(T[t] + h/2, y[t] + h/2 * k2)
-		k4 = f(T[t] + h, y[t] + h * k3)
+		k1 = func(T[t], y[t])
+		k2 = func(T[t] + h/2, y[t] + h/2 * k1)
+		k3 = func(T[t] + h/2, y[t] + h/2 * k2)
+		k4 = func(T[t] + h, y[t] + h * k3)
 		y[t+1] = y[t] + (h/6)*(k1 + 2*k2 + 2*k3 + k4)
 		pass
 	return (T, y)
